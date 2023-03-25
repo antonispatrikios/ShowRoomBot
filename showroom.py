@@ -3,10 +3,11 @@ from discord.ext import commands
 from io import BytesIO
 import base64
 
+
 def run_discord_showroombot():
     ROOMS = {
-        'APMidJourney':1089307304568045639,
-        "Bot test's":1089185073296834612
+        'APMidJourney': 1089307304568045639,
+        "Bot test's": 1089204451253944390
     }
 
     TOKENS = [
@@ -56,14 +57,15 @@ def run_discord_showroombot():
             print(f'{payload.member} reacted with {emoji_name}')
             specific_channel_id = ROOMS[server]
             specific_channel = bot.get_channel(specific_channel_id)
-            
+
             if message.attachments[0].filename not in ATTACHMENTS:
 
                 attachment_data = await message.attachments[0].read()
                 attachment_io = BytesIO(attachment_data)
-                
-                attachfile= discord.File(attachment_io, filename=message.attachments[0].filename)
-                await specific_channel.send(f"[{payload.member}] Add a new photo to the Showroom. {emoji_name}:\n",file=attachfile)
+
+                attachfile = discord.File(
+                    attachment_io, filename=message.attachments[0].filename)
+                await specific_channel.send(f"[{payload.member}] Add a new photo to the Showroom. {emoji_name}:\n", file=attachfile)
                 ATTACHMENTS[message.attachments[0].filename] = message.attachments[0].url
 
     bot.run(decoded_TOKEN.decode('utf-8'))
