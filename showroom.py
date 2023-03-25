@@ -5,8 +5,8 @@ import base64
 
 def run_discord_showroombot():
     ROOMS = {
-        'showroom':1089204451253944390,
-        'general':1089185073296834612
+        'APMidJourney':1089307304568045639,
+        "Bot test's":1089185073296834612
     }
 
     TOKENS = [
@@ -29,7 +29,7 @@ def run_discord_showroombot():
     async def on_ready():
         print(f'We have logged in as {bot.user}')
 
-        Channel = bot.get_channel(ROOMS['showroom'])
+        Channel = bot.get_channel(ROOMS['APMidJourney'])
 
         async for message in Channel.history(limit=None):
             if message.attachments:
@@ -40,7 +40,9 @@ def run_discord_showroombot():
 
     @bot.event
     async def on_raw_reaction_add(payload):
+
         channel = bot.get_channel(payload.channel_id)
+        server = channel.guild.name
         message = await channel.fetch_message(payload.message_id)
         emoji = payload.emoji
         if message.attachments:
@@ -52,7 +54,7 @@ def run_discord_showroombot():
                 emoji_name = str(emoji)
 
             print(f'{payload.member} reacted with {emoji_name}')
-            specific_channel_id = ROOMS['showroom']
+            specific_channel_id = ROOMS[server]
             specific_channel = bot.get_channel(specific_channel_id)
             
             if message.attachments[0].filename not in ATTACHMENTS:
