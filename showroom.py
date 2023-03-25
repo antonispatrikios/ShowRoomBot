@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from io import BytesIO
+import base64
 
 ROOMS = {
     'showroom':1089204451253944390,
@@ -8,8 +9,10 @@ ROOMS = {
 }
 
 TOKENS = [
-    'MTA4OTE4ODk2NzEyOTI5Mjg3Mw.GZ9yzm.XqxeNAurpuJoZhaJGMIX0FPwfn_klZhflGb8vU'
+    'TVRBNE9URTRPRGsyTnpFeU9USTVNamczTXcuR043SUZuLlJFdk1ueGJxX2VJRzJhSkNob25MeFBCVUhWM1o0dFlIT0pTSkdz'
 ]
+
+decoded_TOKEN = base64.b64decode(TOKENS[0])
 
 ATTACHMENTS = {
 
@@ -60,4 +63,4 @@ async def on_raw_reaction_add(payload):
             await specific_channel.send(f"[{payload.member}] Add a new photo to the Showroom. {emoji_name}:\n",file=attachfile)
             ATTACHMENTS[message.attachments[0].filename] = message.attachments[0].url
 
-bot.run(TOKENS[0])
+bot.run(decoded_TOKEN.decode('utf-8'))
