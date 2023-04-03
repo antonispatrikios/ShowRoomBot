@@ -54,7 +54,10 @@ def run_discord_showroombot():
             else:
                 emoji_name = str(emoji)
 
-            print(f'{payload.member} reacted with {emoji_name}')
+            if emoji_name == ":safety_vest:":
+                print(f'{payload.member} reacted with {emoji_name}!!!!!!!!!!!!!!!!!')
+            else :
+                print(f'{payload.member} reacted with {emoji_name}')
             specific_channel_id = ROOMS[server]
             specific_channel = bot.get_channel(specific_channel_id)
 
